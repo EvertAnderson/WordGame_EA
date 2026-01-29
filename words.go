@@ -34,5 +34,10 @@ func loadWords(path string) ([]string, error) {
 		return nil, errors.Wrap(err, "scan words")
 	}
 
+	// Send a message in case a word list is empty after filtering
+	if len(words) == 0 {
+		return nil, errors.New("word list is empty after filtering")
+	}
+
 	return words, nil
 }

@@ -19,8 +19,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// TODO use words in your implementation
-	_ = words
+	app := &App{
+		store: NewGameStore(words),
+	}
+
+	http.HandleFunc("/new", app.handleNew)
+	http.HandleFunc("/guess", app.handleGuess)
 
 	log.Printf("Starting server on http://%s", serverAddress)
 	if err := http.ListenAndServe(serverAddress, nil); err != nil {
